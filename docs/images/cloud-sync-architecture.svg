@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="system-ui,-apple-system,BlinkMacSystemFont,sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="localGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="url(#bgGrad)" rx="16"/>
+
+  <!-- Title -->
+  <text x="450" y="42" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="700" letter-spacing="0.5">Engram Cloud Sync Architecture</text>
+  <text x="450" y="62" text-anchor="middle" fill="#64748b" font-size="12">Persistent storage on CDN  ·  Sub-millisecond queries on local cache</text>
+
+  <!-- Cloud Storage Box -->
+  <rect x="40" y="90" width="340" height="310" rx="12" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)" opacity="0.95"/>
+  <rect x="40" y="90" width="340" height="44" rx="12" fill="url(#cloudGrad)"/>
+  <rect x="40" y="118" width="340" height="16" fill="url(#cloudGrad)"/>
+
+  <!-- Cloud icon -->
+  <path d="M72 107 C72 100 78 95 85 95 C87 89 93 85 100 85 C109 85 116 91 117 99 C123 99 128 104 128 110 C128 117 123 122 116 122 L80 122 C73 122 68 117 68 111 C68 107 70 104 72 107Z" fill="rgba(255,255,255,0.9)" transform="scale(0.7) translate(30, 60)"/>
+
+  <text x="100" y="116" fill="white" font-size="14" font-weight="700">Cloud Storage</text>
+  <text x="262" y="116" fill="rgba(255,255,255,0.6)" font-size="11">Cloudflare R2 / S3</text>
+
+  <!-- Cloud files -->
+  <text x="68" y="158" fill="#a5b4fc" font-size="12" font-weight="600">user_123/</text>
+
+  <!-- File rows in cloud -->
+  <rect x="60" y="170" width="300" height="36" rx="6" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.25)" stroke-width="1"/>
+  <circle cx="82" cy="188" r="8" fill="#818cf8" opacity="0.3"/>
+  <text x="82" y="192" text-anchor="middle" fill="#c7d2fe" font-size="10">📋</text>
+  <text x="100" y="192" fill="#c7d2fe" font-size="13" font-weight="500">meet.egm</text>
+  <text x="310" y="192" fill="#64748b" font-size="10" text-anchor="end">12.4 MB</text>
+
+  <rect x="60" y="214" width="300" height="36" rx="6" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.25)" stroke-width="1"/>
+  <circle cx="82" cy="232" r="8" fill="#818cf8" opacity="0.3"/>
+  <text x="82" y="236" text-anchor="middle" fill="#c7d2fe" font-size="10">📱</text>
+  <text x="100" y="236" fill="#c7d2fe" font-size="13" font-weight="500">social.egm</text>
+  <text x="310" y="236" fill="#64748b" font-size="10" text-anchor="end">8.7 MB</text>
+
+  <rect x="60" y="258" width="300" height="36" rx="6" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.25)" stroke-width="1"/>
+  <circle cx="82" cy="276" r="8" fill="#818cf8" opacity="0.3"/>
+  <text x="82" y="280" text-anchor="middle" fill="#c7d2fe" font-size="10">🔗</text>
+  <text x="100" y="280" fill="#c7d2fe" font-size="13" font-weight="500">unified.egm</text>
+  <text x="310" y="280" fill="#64748b" font-size="10" text-anchor="end">1.2 MB</text>
+
+  <rect x="60" y="302" width="300" height="36" rx="6" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="100" y="324" fill="#475569" font-size="12" font-style="italic">+ voice.egm, email.egm, code.egm ...</text>
+
+  <!-- Cloud badge -->
+  <rect x="60" y="356" width="120" height="24" rx="12" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+  <text x="120" y="372" text-anchor="middle" fill="#a5b4fc" font-size="10" font-weight="600">$0 EGRESS ON R2</text>
+
+  <rect x="192" y="356" width="168" height="24" rx="12" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+  <text x="276" y="372" text-anchor="middle" fill="#a5b4fc" font-size="10" font-weight="600">SOURCE OF TRUTH</text>
+
+  <!-- Local Device Box -->
+  <rect x="520" y="90" width="340" height="310" rx="12" fill="#022c22" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)" opacity="0.95"/>
+  <rect x="520" y="90" width="340" height="44" rx="12" fill="url(#localGrad)"/>
+  <rect x="520" y="118" width="340" height="16" fill="url(#localGrad)"/>
+
+  <!-- Server icon -->
+  <rect x="548" y="101" width="18" height="22" rx="3" fill="rgba(255,255,255,0.9)"/>
+  <line x1="552" y1="108" x2="562" y2="108" stroke="#059669" stroke-width="1.5"/>
+  <line x1="552" y1="113" x2="562" y2="113" stroke="#059669" stroke-width="1.5"/>
+  <line x1="552" y1="118" x2="562" y2="118" stroke="#059669" stroke-width="1.5"/>
+
+  <text x="575" y="116" fill="white" font-size="14" font-weight="700">Local Device / VM</text>
+  <text x="774" y="116" fill="rgba(255,255,255,0.6)" font-size="11">Your Server</text>
+
+  <!-- Local files -->
+  <text x="548" y="158" fill="#6ee7b7" font-size="12" font-weight="600">cache/</text>
+
+  <rect x="540" y="170" width="300" height="36" rx="6" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.25)" stroke-width="1"/>
+  <circle cx="562" cy="188" r="8" fill="#10b981" opacity="0.3"/>
+  <text x="562" y="192" text-anchor="middle" fill="#a7f3d0" font-size="10">📋</text>
+  <text x="580" y="192" fill="#a7f3d0" font-size="13" font-weight="500">meet.egm</text>
+  <rect x="730" y="180" width="96" height="16" rx="4" fill="rgba(16,185,129,0.2)"/>
+  <text x="778" y="192" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="600">CACHED ✓</text>
+
+  <rect x="540" y="214" width="300" height="36" rx="6" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.25)" stroke-width="1"/>
+  <circle cx="562" cy="232" r="8" fill="#10b981" opacity="0.3"/>
+  <text x="562" y="236" text-anchor="middle" fill="#a7f3d0" font-size="10">📱</text>
+  <text x="580" y="236" fill="#a7f3d0" font-size="13" font-weight="500">social.egm</text>
+  <rect x="730" y="224" width="96" height="16" rx="4" fill="rgba(16,185,129,0.2)"/>
+  <text x="778" y="236" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="600">CACHED ✓</text>
+
+  <rect x="540" y="258" width="300" height="36" rx="6" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.25)" stroke-width="1"/>
+  <circle cx="562" cy="276" r="8" fill="#10b981" opacity="0.3"/>
+  <text x="562" y="280" text-anchor="middle" fill="#a7f3d0" font-size="10">🔗</text>
+  <text x="580" y="280" fill="#a7f3d0" font-size="13" font-weight="500">unified.egm</text>
+  <rect x="730" y="268" width="96" height="16" rx="4" fill="rgba(16,185,129,0.2)"/>
+  <text x="778" y="280" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="600">CACHED ✓</text>
+
+  <!-- FAISS search indicator -->
+  <rect x="540" y="308" width="300" height="36" rx="6" fill="rgba(250,204,21,0.08)" stroke="rgba(250,204,21,0.25)" stroke-width="1"/>
+  <text x="560" y="330" fill="#fbbf24" font-size="11" font-weight="600">⚡ FAISS Search Engine</text>
+  <text x="790" y="330" fill="#fbbf24" font-size="11" font-weight="700" text-anchor="end">0.025ms</text>
+
+  <!-- Local badges -->
+  <rect x="540" y="356" width="130" height="24" rx="12" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  <text x="605" y="372" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="600">SUB-MS QUERIES</text>
+
+  <rect x="682" y="356" width="158" height="24" rx="12" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  <text x="761" y="372" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="600">WORKS OFFLINE</text>
+
+  <!-- Sync Arrows -->
+  <!-- Pull arrow (cloud → local) -->
+  <line x1="385" y1="200" x2="515" y2="200" stroke="#818cf8" stroke-width="2" stroke-dasharray="6,4" filter="url(#glow)"/>
+  <polygon points="515,195 525,200 515,205" fill="#818cf8"/>
+  <rect x="412" y="186" width="80" height="20" rx="10" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+  <text x="452" y="200" text-anchor="middle" fill="#a5b4fc" font-size="9" font-weight="600">PULL</text>
+
+  <!-- Sync arrow (local → cloud) -->
+  <line x1="515" y1="270" x2="385" y2="270" stroke="#10b981" stroke-width="2" stroke-dasharray="6,4" filter="url(#glow)"/>
+  <polygon points="385,265 375,270 385,275" fill="#10b981"/>
+  <rect x="412" y="256" width="80" height="20" rx="10" fill="#022c22" stroke="#10b981" stroke-width="1"/>
+  <text x="452" y="270" text-anchor="middle" fill="#6ee7b7" font-size="9" font-weight="600">SYNC</text>
+
+  <!-- Bottom flow -->
+  <rect x="40" y="425" width="820" height="78" rx="12" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <text x="450" y="448" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600" letter-spacing="1">DATA FLOW</text>
+
+  <!-- Flow steps -->
+  <rect x="60" y="458" width="140" height="30" rx="6" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+  <text x="130" y="478" text-anchor="middle" fill="#a5b4fc" font-size="10" font-weight="600">Write locally first</text>
+
+  <text x="212" y="478" fill="#475569" font-size="14">→</text>
+
+  <rect x="228" y="458" width="160" height="30" rx="6" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  <text x="308" y="478" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="600">Query from cache</text>
+
+  <text x="400" y="478" fill="#475569" font-size="14">→</text>
+
+  <rect x="418" y="458" width="160" height="30" rx="6" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+  <text x="498" y="478" text-anchor="middle" fill="#a5b4fc" font-size="10" font-weight="600">Async push to R2</text>
+
+  <text x="590" y="478" fill="#475569" font-size="14">→</text>
+
+  <rect x="608" y="458" width="230" height="30" rx="6" fill="rgba(250,204,21,0.1)" stroke="rgba(250,204,21,0.25)" stroke-width="1"/>
+  <text x="723" y="478" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600">CDN distributes globally (0ms egress)</text>
+</svg>
