@@ -212,6 +212,8 @@ Engram files are designed for cloud-native deployment. Store on any S3-compatibl
 ### Architecture
 
 ```
+
+![Cloud Sync Architecture](docs/images/cloud-sync-architecture.svg)
 Cloud Storage (R2/S3)              Local Device / VM
 ┌─────────────────────┐           ┌─────────────────────┐
 │ user_123/            │           │ cache/               │
