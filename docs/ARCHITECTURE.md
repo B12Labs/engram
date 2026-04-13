@@ -7,9 +7,9 @@ Engram is a hybrid of two technologies:
 1. **LEANN** — Low-storage End-to-end vector index that achieves 97% storage savings through graph pruning
 2. **Memvid** — Portable single-file memory format with sub-millisecond FAISS retrieval
 
-## File Format (.engram)
+## File Format (.egm)
 
-An `.engram` file is a single binary container with the following sections:
+An `.egm` file is a single binary container with the following sections:
 
 ```
 ┌────────────────────────────────────────┐
@@ -74,9 +74,9 @@ At query time, Engram:
 Cloud Storage (R2/S3)           Local Device
 ┌──────────────────┐           ┌──────────────────┐
 │ user_123/         │           │ cache/            │
-│   meet.engram     │◄── sync ─│   meet.engram     │
-│   social.engram   │── pull ──│   social.engram   │
-│   unified.engram  │           │   unified.engram  │
+│   meet.egm     │◄── sync ─│   meet.egm     │
+│   social.egm   │── pull ──│   social.egm   │
+│   unified.egm  │           │   unified.egm  │
 └──────────────────┘           └──────────────────┘
 
 Write: local first → async push to cloud
@@ -86,7 +86,7 @@ Sync:  compare timestamps → only transfer if cloud is newer
 
 ## Unified Cross-App Search
 
-Each app maintains its own `.engram` file. A lightweight `unified.engram` indexes summaries across all apps:
+Each app maintains its own `.egm` file. A lightweight `unified.egm` indexes summaries across all apps:
 
 ```python
 # Each write to any app also appends to unified
@@ -99,7 +99,7 @@ unified.add({
 })
 ```
 
-Cross-app search hits `unified.engram` first (one file, sub-ms), then drills into the specific app file for full content.
+Cross-app search hits `unified.egm` first (one file, sub-ms), then drills into the specific app file for full content.
 
 ## Compaction
 
@@ -109,7 +109,7 @@ The WAL accumulates writes. Periodically, Engram compacts:
 3. Re-prune the LEANN graph
 4. Rebuild FAISS entry points
 5. Update full-text index
-6. Write new `.engram` file atomically
+6. Write new `.egm` file atomically
 
 Compaction runs in the background. Reads continue against the existing file during compaction.
 
