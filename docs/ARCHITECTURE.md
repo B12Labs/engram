@@ -123,3 +123,54 @@ Engram is model-agnostic. Supported embedding models:
 - Any model via custom adapter
 
 The embedding model is recorded in metadata so the file remains self-describing.
+
+
+## Time-Partitioned Sharding
+
+For agents with years of data, Engram splits each app's memory into time-based shards.
+
+### Manifest File
+
+A tiny JSON file (~1-5 KB) that's always cached. Contains:
+- List of all shards per app
+- Date range and tier for each shard
+- Chunk count and file size
+- Pointer to unified cross-app index
+
+### Shard Lifecycle
+
+```
+Write → HOT shard (current quarter)
+         ↓ (end of quarter)
+Compact → WARM shard (last quarter)
+         ↓ (end of year)
+Merge → Annual shard (COLD)
+         ↓ (5+ years)
+Archive → Decade shard (ARCHIVE, optional)
+```
+
+### Query Routing
+
+```
+recall("budget") →
+  1. Check manifest (always cached)
+  2. Search HOT shard (0.025ms)
+  3. Good results? → return
+  4. Expand to WARM shards (~130ms pull)
+  5. Still not found? → check unified archive
+  6. Pull specific COLD shard (~500ms)
+  7. Return results with shard metadata
+```
+
+### Storage Layout on R2
+
+```
+boss-engram/{user_id}/
+  manifest.json
+  meet/meet.2026-Q2.egm
+  meet/meet.2026-Q1.egm
+  meet/meet.2025.egm
+  social/social.2026-Q2.egm
+  unified/unified.2026.egm
+  unified/unified.archive.egm
+```

@@ -18,6 +18,7 @@ Usage:
 __version__ = "0.2.0"
 
 from .core import Engram, UnifiedIndex, SearchResult, Chunk, TreeNode
+from .partitions import PartitionedMemory, Manifest, ShardInfo
 
 __all__ = [
     "Engram",
@@ -25,4 +26,7 @@ __all__ = [
     "SearchResult",
     "Chunk",
     "TreeNode",
+    "PartitionedMemory",
+    "Manifest",
+    "ShardInfo",
 ]
