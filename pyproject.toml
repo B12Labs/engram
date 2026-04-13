@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "engram"
+version = "0.1.0"
+description = "Portable memory for AI agents. Graph-compressed, single-file, sub-millisecond recall."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "B12 Labs", email = "oss@b12labs.dev" },
+]
+keywords = ["ai", "memory", "rag", "vector-search", "agents", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
+
+[project.urls]
+Homepage = "https://github.com/B12Labs/engram"
+Repository = "https://github.com/B12Labs/engram"
+Issues = "https://github.com/B12Labs/engram/issues"
