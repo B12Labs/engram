@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "engram"
-version = "0.1.0"
+version = "0.2.0"
 description = "Portable memory for AI agents. Graph-compressed, single-file, sub-millisecond recall."
 readme = "README.md"
 license = "MIT"
