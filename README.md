@@ -21,9 +21,10 @@
 
 An **engram** (neuroscience) is the physical trace of a memory in the brain — the actual neural pattern that encodes what you remember. This project creates the same thing for AI: permanent, portable memory traces that agents can recall in sub-millisecond time.
 
-Engram combines two breakthrough technologies:
+Engram combines three breakthrough technologies:
 - **[LEANN](https://github.com/yichuan-w/LEANN)** (MIT, 10.8k stars) — graph-pruned vector indices that achieve **97% storage savings**
-- **[Memvid](https://github.com/memvid/memvid)** (Apache 2.0, 13.3k stars) — portable single-file AI memory with sub-ms FAISS retrieval
+- **[Memvid](https://github.com/memvid/memvid)** (Apache 2.0, 13.3k stars)
+- **[PageIndex](https://github.com/VectifyAI/PageIndex)** (MIT, 25.1k stars) — reasoning-based hierarchical retrieval for complex, multi-hop queries — portable single-file AI memory with sub-ms FAISS retrieval
 
 The result: **one file per agent** that contains everything it knows, searchable in 0.025ms, portable anywhere.
 
@@ -64,8 +65,62 @@ my-agent.egm          # 60 MB — contains 1M chunks of knowledge
 ├── LEANN Graph          # Pruned neighbor structure (CSR format)
 ├── FAISS Index          # Entry points for search
 ├── Full-text Index      # Keyword search (Tantivy)
+Hierarchy Tree       # PageIndex reasoning structure
 └── Write-Ahead Log      # Pending writes (auto-compacted)
 ```
+
+---
+
+## Three-Tier Search Architecture
+
+Engram uses three complementary search strategies, auto-selected based on query complexity:
+
+| Tier | Engine | Speed | Best For | Example |
+|------|--------|-------|----------|---------|
+| **Fast** | LEANN vector search | **0.025ms** | Keywords, names, lookups | "budget" |
+| **Hybrid** | Vector + Tantivy full-text | **0.1ms** | Phrases, exact + related | "budget meeting April" |
+| **Deep** | PageIndex hierarchical reasoning | **2-5s** | Temporal chains, cross-refs, why/how | "What led to the budget decision?" |
+
+### Auto-Tier Selection
+
+```python
+from engram import Engram
+
+memory = Engram.load("work.egm")
+
+# Tier 1: Fast (0.025ms) - simple keyword lookup
+results = memory.search("deployment")
+
+# Tier 2: Hybrid (0.1ms) - combines vector + keyword
+results = memory.search_hybrid("deployment schedule Friday")
+
+# Tier 3: Deep (2-5s) - LLM reasons through memory structure
+results = memory.search_deep("What happened after the deployment was scheduled?", llm_client=llm)
+
+# Auto-select: Engram picks the best tier based on query complexity
+results = memory.recall("What happened after the deployment was scheduled?")
+```
+
+### PageIndex Deep Search
+
+For complex queries, Engram builds a **hierarchical tree** from chunk metadata and uses an LLM to navigate it logically:
+
+```
+Memory Tree (auto-built):
+Root
++-- 2026-04-12
+|   +-- meet (3 items): "Q2 roadmap, budget approved"
+|   +-- email (2 items): "Sarah: new hire, budget request"
+|   +-- slack (1 item): "Deploy scheduled Friday 3pm"
++-- 2026-04-11
+|   +-- meet (2 items): "Design review, mockups approved"
+|   +-- email (4 items): "Client API request, vendor quotes"
++-- 2026-04-10
+    +-- meet (1 item): "Sprint planning"
+```
+
+**Vector search** finds chunks that *look similar* to the query.
+**PageIndex reasoning** finds chunks that *logically answer the question* — following temporal chains, cross-referencing sources, and explaining its reasoning.
 
 ---
 
@@ -863,6 +918,8 @@ Append-only write-ahead log:
 - [x] Core `.egm` file format
 - [x] LEANN graph pruning integration
 - [x] FAISS search
+- [x] PageIndex hierarchical reasoning (deep tier)
+- [x] Three-tier auto-selection via recall()
 - [x] Basic file connectors (PDF, Markdown, TXT)
 - [x] Cloud storage (R2, S3)
 - [x] Python SDK
@@ -943,6 +1000,7 @@ Engram builds on the groundbreaking work of:
 - **[LEANN](https://github.com/yichuan-w/LEANN)** by Yichuan Wang et al. — the graph pruning algorithm that makes 97% storage savings possible
 - **[Memvid](https://github.com/memvid/memvid)** — the portable single-file memory format that inspired Engram's architecture
 - **[FAISS](https://github.com/facebookresearch/faiss)** by Meta Research — the vector similarity search engine at Engram's core
+- **[PageIndex](https://github.com/VectifyAI/PageIndex)** by VectifyAI — reasoning-based hierarchical retrieval powering the deep search tier
 - **[Tantivy](https://github.com/quickwit-oss/tantivy)** — the full-text search engine powering hybrid retrieval
 
 ---
