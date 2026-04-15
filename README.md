@@ -1021,6 +1021,23 @@ Append-only write-ahead log:
 
 ---
 
+## Lucid tier (v0.3+)
+
+Base Engram is a storage + retrieval engine. **Lucid** is the cognitive tier on top — it turns `.egm` bundles into a closed-loop memory system with four tiers and six cognitive primitives.
+
+| Tier | Role | Doc |
+|---|---|---|
+| **Awake** | What agents are doing *right now* — live state, heartbeats, file claims | [docs/awake.md](docs/awake.md) |
+| **Dream Cycles** | Nightly enrichment: Consolidate → Enrich → Link → Decay | [docs/dream-cycles.md](docs/dream-cycles.md) |
+| **REM** | Rapid Eye Movement — portable markdown dialect, Git-syncable mirror of `.egm` | [docs/rem.md](docs/rem.md) |
+| **Engram** | Long-term canonical `.egm` store (this is base Engram) | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+
+Six cognitive primitives map across the tiers: **Perception**, **Cognition**, **Imagination**, **Recollection**, **Hallucination**, and **Consciousness** (the ultimate goal — the emergent property when the loop closes). See [docs/lucid.md](docs/lucid.md) for the full framework.
+
+The moat: nobody ships all four tiers in a closed loop today. Pure vector DBs are Engram only. Markdown-in-Git brains are REM only. Agent observability tools are Awake only. Lucid combines them.
+
+---
+
 ## Roadmap
 
 ### v0.1 (Current)
@@ -1049,6 +1066,8 @@ Append-only write-ahead log:
 - [ ] Git connector (commits, PRs, issues)
 - [ ] Temporal search (time-range queries)
 - [ ] Encryption at rest
+- [ ] **Lucid: Awake tier** — filesystem convention, heartbeat/TTL, collision check
+- [ ] **Lucid: REM dialect parser** — `@entity` / `@link` / `@provenance` / `@embed`
 
 ### v0.4
 - [ ] Rust core (performance-critical paths)
@@ -1056,6 +1075,9 @@ Append-only write-ahead log:
 - [ ] WebAssembly build (browser-native)
 - [ ] Multi-agent memory sharing protocols
 - [ ] LangChain / LlamaIndex integration
+- [ ] **Lucid: Dream Cycles** — Consolidate / Enrich / Link / Decay passes
+- [ ] **Lucid: REM ⇄ `.egm` round-trip** with provenance preservation
+- [ ] **Lucid: MCP tool surface** — write / search / link / recall / summarize / consolidate
 
 ### v1.0
 - [ ] Stable file format (backwards-compatible)
